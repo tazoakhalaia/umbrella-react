@@ -27,7 +27,7 @@ function AdminPage() {
     formData.append('img', productImage);
     formData.append('category', productCategory);
 
-    if(productName !== '' && productPrice !== '' && productDescription !== '' && productImage !== '' && productCategory !== ''){
+    if(productName !== '' && productPrice !== '' && productDescription !== '' && productImage !== null && productCategory !== ''){
       setMessageSuccess(true)
       setProductCreateMessage('Product created succssefully please refresh page')
     }else {
