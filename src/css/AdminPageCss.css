@@ -1,0 +1,89 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    padding: 20px 10px 0 10px;
+}
+
+header {
+    width: 95%;
+    height: 50px;
+    background-color: #249ac8;
+    margin: auto;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header h1 {
+    font-size: 20px;
+    color: aliceblue;
+}
+
+main {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.products-input {
+    width: 250px;
+    height: 30px;
+    border-color: #7f7d7d;
+    border-radius: 3px;
+}
+
+.product-name-input {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.product-name-input label {
+    font-size: 14px;
+    margin-bottom: 3px;
+    font-weight: bold;
+}
+
+.product-create-containter {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.file-input__input {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+  
+  .file-input__label {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    font-size: 14px;
+    padding: 10px 12px;
+    background-color: #4245a8;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
+    width: 250px;
+  }
+  
+  .file-input__label svg {
+    height: 16px;
+    margin-right: 4px;
+  }
+  
+
+  .create-prodcut-btn {
+    margin-top: 25px;
+  }
