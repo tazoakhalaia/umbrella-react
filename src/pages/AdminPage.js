@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../css/AdminPageCss.css';
 import { Button, Input, Space } from 'antd';
-import { CloudUploadOutlined } from '@ant-design/icons';
+import { CloudUploadOutlined, DeleteFilled } from '@ant-design/icons';
 import TextArea from 'antd/es/input/TextArea';
 import axios from 'axios';
 
@@ -26,6 +26,11 @@ function AdminPage() {
       } catch (error) {
         console.error(error);
       }
+  }
+
+  function deleteProduct(id){
+    console.log(id);
+    axios.delete(`http://127.0.0.1:8000/api/products/${id}`)
   }
 
   useEffect(() => {
@@ -109,16 +114,32 @@ function AdminPage() {
         </form>
       </main>
       <section>
-        { allProduct.map((item) => {
-            return <div>
+        <div className='all-product-header'>
+            <h1>ID</h1>
+            <h1>Name</h1>
+            <h1>Price</h1>
+            <h1>Description</h1>
+            <h1>Category</h1>
+            <h1>Image</h1>
+            <h1>Delete</h1>
+        </div>
+        <div className='all-product-pos'>
+        { allProduct.map((item, index) => {
+            return <div key={index} className='all-product'>
                 <h1>{ item.id }</h1>
                 <h1>{ item.name }</h1>
                 <h1>{ item.price }</h1>
-                <h1>{ item.desc }</h1>
-                <img src={`http://127.0.0.1:8000/images/${item.img}`} alt={item.name} />
+                <div className="description-container">
+                    <h1>{item.desc}</h1>
+                    </div>
                 <h1>{ item.category }</h1>
+                <img src={`http://127.0.0.1:8000/images/${item.img}`} alt={item.name} />
+                <div  className='delete-product'>
+                <button onClick={() => deleteProduct(item.id)}><DeleteFilled /></button>
+                </div>
             </div>
         })}
+        </div>
       </section>
     </div>
   );

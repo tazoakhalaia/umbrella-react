@@ -88,3 +88,78 @@ main {
   .create-prodcut-btn {
     margin-top: 25px;
   }
+
+  section {
+    margin-top: 25px;
+  }
+
+  .all-product-header {
+    width: 95%;
+    height: 50px;
+    background-color: #249ac8;
+    margin: auto;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px 0 10px;
+  }
+
+.all-product-header  h1 {
+    font-size: 12px;
+    color: aliceblue;
+    width: 13%;
+} 
+
+.all-product {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+    height: 50px;
+    margin: auto;
+    background-color: white;
+    padding: 0 10px 0 10px;
+    border-radius: 5px;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.all-product h1 {
+    font-size: 12px;
+    width: 13%;
+    word-break: break-all;
+}
+
+.description-container {
+    width: 13%;
+    max-height: 100%; 
+    overflow-y: auto;
+  }
+
+  .description-container h1 {
+    width: 100%;
+  }
+
+.all-product img {
+    width: 13%;
+    height: 50px;
+}
+
+.all-product-pos {
+    margin-top: 15px;
+}
+
+
+.delete-product {
+    width: 13%;
+}
+
+.delete-product button {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color: red;
+    cursor: pointer;
+}
