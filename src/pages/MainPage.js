@@ -65,7 +65,7 @@ function MainPage() {
       <div style={{ marginBottom: '20px' }}>
         <Space wrap>
           <Link to="/admin-panel">
-            <Button>Home Page</Button>
+            <Button>Admin Page</Button>
           </Link>
         </Space>
       </div>
