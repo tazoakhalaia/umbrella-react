@@ -10,7 +10,6 @@ function MainPage() {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [modal, setModal] = useState('')
-  const [openModalBool, setOpenModal] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -92,11 +91,18 @@ function MainPage() {
           <span>Description: </span>
           <h1 style={{ fontSize: '14px' }}>{ desc }</h1>
           </div>
+          <Button type='primary' style={{ marginLeft: '10px', backgroundColor: 'red', cursor: 'pointer' }} onClick={() => setModal('')}>CLOSE</Button>
       </div>
     </div>
     </div>
    )
   }
+
+  function deleteProduct(id){
+    console.log(id);
+    axios.delete(`http://127.0.0.1:8000/api/products/${id}`)
+  }
+
   return (
     <div>
        {modal}
@@ -145,11 +151,17 @@ function MainPage() {
                   <span>Category : </span>
                   <h1>{item.category}</h1>
                 </div>
-                <div style={{ marginBottom: '20px' }}>
+                <div style={{ marginBottom: '20px', display: 'flex' }}>
                   <Space wrap>
-                      <Button onClick={() => openModal(item.id, item.name, item.price, item.img, item.category, item.desc)}>Open Product Modal</Button>
+                      <Button onClick={() => openModal(item.id, item.name, item.price, item.img, item.category, item.desc)}>Open Modal</Button>
+                      </Space>
+                      <div>
+                      <Space wrap>
+                      <Button onClick={() => deleteProduct(item.id)} type='primary' style={{ marginLeft: '10px', backgroundColor: 'red' }}>Delete</Button>
                       </Space>
                       </div>
+                      </div>
+
               </div>
             </div>
           );
