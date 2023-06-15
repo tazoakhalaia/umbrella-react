@@ -1,70 +1,100 @@
-import React from 'react'
-import '../css/AdminPageCss.css'
+import React, { useState } from 'react';
+import '../css/AdminPageCss.css';
 import { Button, Input, Space, Upload } from 'antd';
+import { CloudUploadOutlined } from '@ant-design/icons';
+import TextArea from 'antd/es/input/TextArea';
+import axios from 'axios';
 
 function AdminPage() {
+  const [productName, setProductName] = useState('');
+  const [productPrice, setProductPrice] = useState('');
+  const [productDescription, setProductDescription] = useState('');
+  const [productImage, setProductImage] = useState(null);
+  const [productCategory, setProductCategory] = useState('');
+
+  async function productData() {
+    const formData = new FormData();
+    formData.append('name', productName);
+    formData.append('price', productPrice);
+    formData.append('desc', productDescription);
+    formData.append('img', productImage);
+    formData.append('category', productCategory);
+    try {
+        const response = await axios.post('http://127.0.0.1:8000/api/product', formData);
+        console.log(response);
+      } catch (error) {
+        console.error(error);
+      }
+  }
+
   return (
     <div>
-        <header>
-            <h1>Create Products</h1>
-        </header>
-        <main>
-            <form>
-            <div className='product-create-containter'>
+      <header>
+        <h1>Create Products</h1>
+      </header>
+      <main>
+        <form>
+          <div className='product-create-containter'>
             <div className='product-name-input'>
-                <label htmlFor='name'>Product Name :</label>
-                <Input name='name' className='products-input' />
+              <label htmlFor='name'>Product Name :</label>
+              <Input
+                name='name'
+                className='products-input'
+                onChange={(e) => setProductName(e.target.value)}
+              />
             </div>
             <div className='product-name-input'>
-                <label htmlFor='price'>Product Price :</label>
-                <Input name='price' className='products-input' />
+              <label htmlFor='price'>Product Price :</label>
+              <Input
+                name='price'
+                className='products-input'
+                onChange={(e) => setProductPrice(e.target.value)}
+              />
             </div>
             <div className='product-name-input'>
-                <label htmlFor='descriptio'>Product Description :</label>
-                <Input name='descriptiom' className='products-input' />
+              <label htmlFor='description'>Product Description :</label>
+              <TextArea style={{resize: 'none', height: '30px'}}
+                name='description'
+                className='products-input'
+                onChange={(e) => setProductDescription(e.target.value)}
+              />
             </div>
             <div className='product-name-input'>
-                <label htmlFor='file_input'>Product Image :</label>
-                <div className="file-input">
-                    <input
-                    type="file"
-                    name="file-input"
-                    id="file-input"
-                    className="file-input__input"
-                    />
-                    <label className="file-input__label" htmlFor="file-input">
-                        <svg
-                        aria-hidden="true"
-                        focusable="false"
-                        data-prefix="fas"
-                        data-icon="upload"
-                        // class="svg-inline--fa fa-upload fa-w-16"
-                        role="img"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 512 512"
-                        >
-                            <path
-                            fill="currentColor"
-                            d="M296 384h-80c-13.3 0-24-10.7-24-24V192h-87.7c-17.8 0-26.7-21.5-14.1-34.1L242.3 5.7c7.5-7.5 19.8-7.5 27.3 0l152.2 152.2c12.6 12.6 3.7 34.1-14.1 34.1H320v168c0 13.3-10.7 24-24 24zm216-8v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h136v8c0 30.9 25.1 56 56 56h80c30.9 0 56-25.1 56-56v-8h136c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z">
-                            </path>
-                            </svg>
-                            <span>Upload file</span></label>
-                            </div>
-                            </div>
-                            <div className='product-name-input'>
-                                <label htmlFor='category'>Product Category :</label>
-                                <Input name='category' className='products-input' />
-                                </div>
-                                </div>
-                                <div className='create-prodcut-btn'>
-                                <Space wrap>
-                                    <Button type="primary">Create Product</Button>
-                                    </Space>
-                                    </div>
-                                    </form>
-                                </main>
-                                </div>
-  )
+              <label htmlFor='file_input'>Product Image :</label>
+              <div className='file-input'>
+                <input
+                  type='file'
+                  name='file-input'
+                  id='file-input'
+                  className='file-input__input'
+                  onChange={(e) => setProductImage(e.target.files[0])}
+                />
+                <label className='file-input__label' htmlFor='file-input'>
+                <CloudUploadOutlined />
+                  <span>Upload file</span>
+                </label>
+              </div>
+            </div>
+            <div className='product-name-input'>
+              <label htmlFor='category'>Product Category :</label>
+              <Input
+                name='category'
+                className='products-input'
+                onChange={(e) => setProductCategory(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className='create-prodcut-btn'>
+            <Space wrap>
+              <Button onClick={productData} type='primary'>
+                Create Product
+              </Button>
+            </Space>
+          </div>
+        </form>
+      </main>
+    </div>
+  );
 }
 
-export default AdminPage
+export default AdminPage;
