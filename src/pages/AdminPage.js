@@ -4,6 +4,7 @@ import { Button, Input, Space } from 'antd';
 import { CloudUploadOutlined, DeleteFilled } from '@ant-design/icons';
 import TextArea from 'antd/es/input/TextArea';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function AdminPage() {
   const [productName, setProductName] = useState('');
@@ -104,12 +105,19 @@ function AdminPage() {
               />
             </div>
           </div>
+          <div style={{ display: 'flex', alignItems: 'center', height: '50px' }}>
           <div className='create-prodcut-btn'>
             <Space wrap>
               <Button onClick={productData} type='primary'>
                 Create Product
               </Button>
             </Space>
+          </div>
+          <div className='go-home-page'>
+          <Space wrap>
+           <Link to='/'><Button>Home Page</Button></Link>
+            </Space>
+          </div>
           </div>
         </form>
       </main>
