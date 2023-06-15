@@ -14,6 +14,7 @@ function AdminPage() {
   const [productCategory, setProductCategory] = useState('');
   const [allProduct, setAllProduct] = useState([])
   const [allCategory, setAllCategory] = useState([])
+  const [errorMessage, setErrorMessage] = useState('')
 
   async function productData() {
     const formData = new FormData();
@@ -22,6 +23,7 @@ function AdminPage() {
     formData.append('desc', productDescription);
     formData.append('img', productImage);
     formData.append('category', productCategory);
+
     try {
         const response = await axios.post('http://127.0.0.1:8000/api/product', formData);
         console.log(response);
@@ -123,6 +125,7 @@ function AdminPage() {
             <div className='product-info-input'>
               <label htmlFor='category'>Product Category :</label>
               <select className='products-input'  name='category' onChange={(e) => setProductCategory(e.target.value)}>
+              <option value="">Select a category</option>
                 {allCategory.map((item, index) => {
                   return <option key={index} value={item.category}>
                     {item.category}
@@ -131,6 +134,7 @@ function AdminPage() {
               </select>
             </div>
           </div>
+          <h1 style={{ marginTop: '10px', fontSize: '12px', color: 'red'}}>{errorMessage}</h1>
           <div style={{ display: 'flex', alignItems: 'center', height: '50px' }}>
           <div className='create-prodcut-btn'>
             <Space wrap>

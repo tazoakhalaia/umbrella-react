@@ -57,3 +57,8 @@
     word-break: break-all;
     overflow-y: auto;
 }
+
+.all-category::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
