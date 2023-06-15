@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../css/AdminPageCss.css';
-import { Button, Input, Space, Upload } from 'antd';
+import { Button, Input, Space } from 'antd';
 import { CloudUploadOutlined } from '@ant-design/icons';
 import TextArea from 'antd/es/input/TextArea';
 import axios from 'axios';
@@ -11,6 +11,7 @@ function AdminPage() {
   const [productDescription, setProductDescription] = useState('');
   const [productImage, setProductImage] = useState(null);
   const [productCategory, setProductCategory] = useState('');
+  const [allProduct, setAllProduct] = useState([])
 
   async function productData() {
     const formData = new FormData();
@@ -27,6 +28,20 @@ function AdminPage() {
       }
   }
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/api/products');
+        const data = response.data;
+        setAllProduct(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+
+  }, []); 
+  
   return (
     <div>
       <header>
@@ -93,6 +108,18 @@ function AdminPage() {
           </div>
         </form>
       </main>
+      <section>
+        { allProduct.map((item) => {
+            return <div>
+                <h1>{ item.id }</h1>
+                <h1>{ item.name }</h1>
+                <h1>{ item.price }</h1>
+                <h1>{ item.desc }</h1>
+                <img src={`http://127.0.0.1:8000/images/${item.img}`} alt={item.name} />
+                <h1>{ item.category }</h1>
+            </div>
+        })}
+      </section>
     </div>
   );
 }
