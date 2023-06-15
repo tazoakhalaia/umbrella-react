@@ -4,7 +4,6 @@
     box-sizing: border-box;
 }
 
-
 .main-page-all-products {
     width: 450px;
     height: 300px;
@@ -13,6 +12,8 @@
     display: flex;
     overflow: hidden;
     flex-wrap: wrap;
+    margin-left: 10px;
+    margin-top: 20px;
 }
 
 .main-page-all-products h1 {
@@ -22,9 +23,11 @@
 
 .product-full-info {
     margin-left: 20px;
+    width: 200px;
 }
 
 .product-info {
+    width: 100%;
     margin-top: 10px;
 }
 
@@ -47,4 +50,10 @@
 .image img {
     width: 100%;
     height: 100%;
+}
+
+.word-wrap {
+    height: 50px;
+    word-break: break-all;
+    overflow-y: auto;
 }

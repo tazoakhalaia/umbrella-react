@@ -13,6 +13,7 @@ function AdminPage() {
   const [productImage, setProductImage] = useState(null);
   const [productCategory, setProductCategory] = useState('');
   const [allProduct, setAllProduct] = useState([])
+  const [allCategory, setAllCategory] = useState([])
 
   async function productData() {
     const formData = new FormData();
@@ -44,9 +45,32 @@ function AdminPage() {
         console.error(error);
       }
     };
-    fetchData();
+
+    const fetchCategoris = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/api/categories');
+        const data = response.data;
+        setAllCategory(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchCategoris()
+    fetchData()
 
   }, []); 
+
+  async function createCategory(){
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/api/category', {
+        category: productCategory
+      });
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  }
   
   return (
     <div>
@@ -56,7 +80,7 @@ function AdminPage() {
       <main>
         <form>
           <div className='product-create-containter'>
-            <div className='product-name-input'>
+            <div className='product-info-input'>
               <label htmlFor='name'>Product Name :</label>
               <Input
                 name='name'
@@ -64,7 +88,7 @@ function AdminPage() {
                 onChange={(e) => setProductName(e.target.value)}
               />
             </div>
-            <div className='product-name-input'>
+            <div className='product-info-input'>
               <label htmlFor='price'>Product Price :</label>
               <Input
                 name='price'
@@ -72,7 +96,7 @@ function AdminPage() {
                 onChange={(e) => setProductPrice(e.target.value)}
               />
             </div>
-            <div className='product-name-input'>
+            <div className='product-info-input'>
               <label htmlFor='description'>Product Description :</label>
               <TextArea style={{resize: 'none', height: '30px'}}
                 name='description'
@@ -80,7 +104,7 @@ function AdminPage() {
                 onChange={(e) => setProductDescription(e.target.value)}
               />
             </div>
-            <div className='product-name-input'>
+            <div className='product-info-input'>
               <label htmlFor='file_input'>Product Image :</label>
               <div className='file-input'>
                 <input
@@ -96,13 +120,15 @@ function AdminPage() {
                 </label>
               </div>
             </div>
-            <div className='product-name-input'>
+            <div className='product-info-input'>
               <label htmlFor='category'>Product Category :</label>
-              <Input
-                name='category'
-                className='products-input'
-                onChange={(e) => setProductCategory(e.target.value)}
-              />
+              <select className='products-input'  name='category' onChange={(e) => setProductCategory(e.target.value)}>
+                {allCategory.map((item, index) => {
+                  return <option key={index} value={item.category}>
+                    {item.category}
+                  </option>
+                })}
+              </select>
             </div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', height: '50px' }}>
@@ -118,6 +144,23 @@ function AdminPage() {
            <Link to='/'><Button>Home Page</Button></Link>
             </Space>
           </div>
+          </div>
+        </form>
+        <form>
+        <div className='product-info-input'>
+              <label htmlFor='category'>Product Category :</label>
+              <Input
+                name='category'
+                className='products-input'
+                onChange={(e) => setProductCategory(e.target.value)}
+              />
+            </div>
+            <div style={{ marginTop: '10px' }}>
+            <Space wrap>
+              <Button onClick={createCategory} type='primary'>
+                Create Category
+              </Button>
+            </Space>
           </div>
         </form>
       </main>

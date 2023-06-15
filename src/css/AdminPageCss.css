@@ -35,15 +35,17 @@ main {
     height: 30px;
     border-color: #7f7d7d;
     border-radius: 3px;
+    outline: none;
+    
 }
 
-.product-name-input {
+.product-info-input {
     display: flex;
     flex-direction: column;
     margin-top: 10px;
 }
 
-.product-name-input label {
+.product-info-input label {
     font-size: 14px;
     margin-bottom: 3px;
     font-weight: bold;
