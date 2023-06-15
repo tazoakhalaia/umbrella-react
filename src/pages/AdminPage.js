@@ -14,7 +14,10 @@ function AdminPage() {
   const [productCategory, setProductCategory] = useState('');
   const [allProduct, setAllProduct] = useState([])
   const [allCategory, setAllCategory] = useState([])
-  const [errorMessage, setErrorMessage] = useState('')
+  const [productCreateMessage, setProductCreateMessage] = useState('')
+  const [messageSuccess, setMessageSuccess] = useState(true)
+  const [categorySuccessMessage, setcategorySuccessMessage] = useState('')
+  const [categorySuccess, setCategorySuccess] = useState(true)
 
   async function productData() {
     const formData = new FormData();
@@ -23,6 +26,14 @@ function AdminPage() {
     formData.append('desc', productDescription);
     formData.append('img', productImage);
     formData.append('category', productCategory);
+
+    if(productName !== '' && productPrice !== '' && productDescription !== '' && productImage !== '' && productCategory !== ''){
+      setMessageSuccess(true)
+      setProductCreateMessage('Product created succssefully please refresh page')
+    }else {
+      setMessageSuccess(false)
+      setProductCreateMessage('Please fill all fields')
+    }
 
     try {
         const response = await axios.post('http://127.0.0.1:8000/api/product', formData);
@@ -64,6 +75,13 @@ function AdminPage() {
   }, []); 
 
   async function createCategory(){
+    if(productCategory){
+      setCategorySuccess(true)
+      setcategorySuccessMessage('Category created succssefully please refresh page')
+    }else {
+      setCategorySuccess(false)
+      setcategorySuccessMessage('Please fill fields')
+    }
     try {
       const response = await axios.post('http://127.0.0.1:8000/api/category', {
         category: productCategory
@@ -87,6 +105,7 @@ function AdminPage() {
               <Input
                 name='name'
                 className='products-input'
+                placeholder='Product Name'
                 onChange={(e) => setProductName(e.target.value)}
               />
             </div>
@@ -95,6 +114,7 @@ function AdminPage() {
               <Input
                 name='price'
                 className='products-input'
+                placeholder='Product Price'
                 onChange={(e) => setProductPrice(e.target.value)}
               />
             </div>
@@ -103,6 +123,7 @@ function AdminPage() {
               <TextArea style={{resize: 'none', height: '30px'}}
                 name='description'
                 className='products-input'
+                placeholder='Product Description'
                 onChange={(e) => setProductDescription(e.target.value)}
               />
             </div>
@@ -125,7 +146,7 @@ function AdminPage() {
             <div className='product-info-input'>
               <label htmlFor='category'>Product Category :</label>
               <select className='products-input'  name='category' onChange={(e) => setProductCategory(e.target.value)}>
-              <option value="">Select a category</option>
+              <option disabled selected>Select a category</option>
                 {allCategory.map((item, index) => {
                   return <option key={index} value={item.category}>
                     {item.category}
@@ -134,7 +155,7 @@ function AdminPage() {
               </select>
             </div>
           </div>
-          <h1 style={{ marginTop: '10px', fontSize: '12px', color: 'red'}}>{errorMessage}</h1>
+          <h1 style={{ marginTop: '10px', fontWeight: 'bold', fontSize: '14px', color: messageSuccess ? 'green' : 'red' }}>{productCreateMessage}</h1>
           <div style={{ display: 'flex', alignItems: 'center', height: '50px' }}>
           <div className='create-prodcut-btn'>
             <Space wrap>
@@ -156,9 +177,11 @@ function AdminPage() {
               <Input
                 name='category'
                 className='products-input'
+                placeholder='Category'
                 onChange={(e) => setProductCategory(e.target.value)}
               />
             </div>
+            <h1 style={{ marginTop: '10px', fontWeight: 'bold', fontSize: '14px', color: categorySuccess ? 'green' : 'red' }}>{categorySuccessMessage}</h1>
             <div style={{ marginTop: '10px' }}>
             <Space wrap>
               <Button onClick={createCategory} type='primary'>

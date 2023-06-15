@@ -58,7 +58,23 @@
     overflow-y: auto;
 }
 
+.word-wrap::-webkit-scrollbar {
+    width: 2px;
+    height: 0.5px;
+    background-color: gray;
+    border-radius: 5px;
+}
+
 .all-category::-webkit-scrollbar {
     width: 0;
     height: 0;
+  }
+
+  .modal h1 {
+    font-size: 14px;
+  }
+
+  .modal span {
+    font-size:  12px;
+    margin-top: 10px;
   }
