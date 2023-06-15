@@ -9,6 +9,7 @@ function AdminPage() {
             <h1>Create Products</h1>
         </header>
         <main>
+            <form>
             <div className='product-create-containter'>
             <div className='product-name-input'>
                 <label htmlFor='name'>Product Name :</label>
@@ -24,20 +25,20 @@ function AdminPage() {
             </div>
             <div className='product-name-input'>
                 <label htmlFor='file_input'>Product Image :</label>
-                <div class="file-input">
+                <div className="file-input">
                     <input
                     type="file"
                     name="file-input"
                     id="file-input"
-                    class="file-input__input"
+                    className="file-input__input"
                     />
-                    <label class="file-input__label" for="file-input">
+                    <label className="file-input__label" htmlFor="file-input">
                         <svg
                         aria-hidden="true"
                         focusable="false"
                         data-prefix="fas"
                         data-icon="upload"
-                        class="svg-inline--fa fa-upload fa-w-16"
+                        // class="svg-inline--fa fa-upload fa-w-16"
                         role="img"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 512 512"
@@ -60,6 +61,7 @@ function AdminPage() {
                                     <Button type="primary">Create Product</Button>
                                     </Space>
                                     </div>
+                                    </form>
                                 </main>
                                 </div>
   )
